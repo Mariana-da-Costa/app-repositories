@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.core.createDialog
 import br.com.dio.app.repositories.core.createProgressDialog
@@ -25,6 +27,13 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
+        binding.rvRepos.apply {
+            adapter = RepoListAdapter()
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(this@MainActivity, 2)
+        }
+
         binding.rvRepos.adapter = adapter
 
         viewModel.repos.observe(this) {
